@@ -1,31 +1,50 @@
 <template>
-  <div class="main">
-    <div class="banner">
-      <img src="../assets/hv.png">
+  <div>
+    <div class="header">
+      <Menu>
+        <b-nav-item class="nav-item">Home</b-nav-item>
+        <b-nav-item class="nav-item">Catalog</b-nav-item>
+        <b-nav-item class="nav-item">About</b-nav-item>
+      </Menu>
     </div>
 
-    <div class="content">
-      <img class="img-left" src="../assets/hand-icon.png">
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit soluta maiores alias repudiandae at nemo, ipsam nostrum eveniet. Inventore sequi voluptatibus distinctio laborum quis dolorem voluptatem odit iure ipsa voluptatum?</p>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed ducimus quibusdam quis, quod ex sapiente fugiat ipsum nam nihil, ut nisi, saepe ratione suscipit accusantium modi cupiditate pariatur. Eligendi, quos.</p>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed ducimus quibusdam quis, quod ex sapiente fugiat ipsum nam nihil, ut nisi, saepe ratione suscipit accusantium modi cupiditate pariatur. Eligendi, quos.</p>
-      <img class="img-right" src="../assets/guitar-icon.png" alt>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed ducimus quibusdam quis, quod ex sapiente fugiat ipsum nam nihil, ut nisi, saepe ratione suscipit accusantium modi cupiditate pariatur. Eligendi, quos.</p>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed ducimus quibusdam quis, quod ex sapiente fugiat ipsum nam nihil, ut nisi, saepe ratione suscipit accusantium modi cupiditate pariatur. Eligendi, quos.</p>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed ducimus quibusdam quis, quod ex sapiente fugiat ipsum nam nihil, ut nisi, saepe ratione suscipit accusantium modi cupiditate pariatur. Eligendi, quos.</p>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed ducimus quibusdam quis, quod ex sapiente fugiat ipsum nam nihil, ut nisi, saepe ratione suscipit accusantium modi cupiditate pariatur. Eligendi, quos.</p>
-    </div>
+    <b-container fluid class="full-height" style="background-color: #555;">
+      <b-row class="banner">
+        <b-col>
+          <img src="../assets/hv.png">
+        </b-col>
+      </b-row>
+
+      <b-row class="content"> 
+        <b-col>
+          <img class="img-left" src="../assets/hand-icon.png">
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit soluta maiores alias repudiandae at nemo, ipsam nostrum eveniet. Inventore sequi voluptatibus distinctio laborum quis dolorem voluptatem odit iure ipsa voluptatum?</p>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed ducimus quibusdam quis, quod ex sapiente fugiat ipsum nam nihil, ut nisi, saepe ratione suscipit accusantium modi cupiditate pariatur. Eligendi, quos.</p>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed ducimus quibusdam quis, quod ex sapiente fugiat ipsum nam nihil, ut nisi, saepe ratione suscipit accusantium modi cupiditate pariatur. Eligendi, quos.</p>
+          <img class="img-right" src="../assets/guitar-icon.png" alt>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed ducimus quibusdam quis, quod ex sapiente fugiat ipsum nam nihil, ut nisi, saepe ratione suscipit accusantium modi cupiditate pariatur. Eligendi, quos.</p>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed ducimus quibusdam quis, quod ex sapiente fugiat ipsum nam nihil, ut nisi, saepe ratione suscipit accusantium modi cupiditate pariatur. Eligendi, quos.</p>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed ducimus quibusdam quis, quod ex sapiente fugiat ipsum nam nihil, ut nisi, saepe ratione suscipit accusantium modi cupiditate pariatur. Eligendi, quos.</p>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed ducimus quibusdam quis, quod ex sapiente fugiat ipsum nam nihil, ut nisi, saepe ratione suscipit accusantium modi cupiditate pariatur. Eligendi, quos.</p>
+        </b-col>
+      </b-row>
+    </b-container>
   </div>
 </template>
 
 <script>
+import Menu from "./Menu";
+
 export default {
-  name: "Home"
+  name: "Home",
+  components: {
+    Menu
+  }
 };
 </script>
 
 <style scoped>
-@media only screen and (max-width: 999px) {
+@media only screen and (max-width: 992px) {
   .banner {
     background-image: url("../assets/bg-small.jpg");
   }
@@ -33,12 +52,12 @@ export default {
     position: absolute;
     width: 95%;
     height: auto;
-    max-height: 70%;
+    /* max-height: 70%; */
     top: 30%;
   }
 }
 
-@media only screen and (min-width: 1000px) {
+@media only screen and (min-width: 992px) {
   .banner {
     background-image: url("../assets/bg-medium.jpg");
   }
@@ -49,33 +68,28 @@ export default {
   }
 }
 
-@media only screen and (min-width: 1920px) {
-  .banner {
-    background-image: url("../assets/bg-large.jpg");
-  }
-  img {
-    width: 50%;
-    height: auto;
-    margin: 110px 15%;
-  }
-}
-
-.main {
-  display: grid;
+.bcont{
+  background-color: #555;
 }
 
 .banner {
-  margin: 0;
-  background-position: center right;
+  background-position: center;
   background-attachment: fixed;
   background-repeat: no-repeat;
   min-width: 100%;
   min-height: 100%;
 }
 
+.nav-item > a {
+  text-align: center;
+  color: #fef;
+}
+
+.nav-item:hover {
+  background: #444;
+}
+
 .content {
-  max-width: 100%;
-  height: auto;
   min-height: 300px;
   padding: 5%;
   margin: 1% 5%;
@@ -99,5 +113,11 @@ export default {
 
 .img-right {
   float: right;
+}
+
+.full-height {
+  position: absolute;
+  top: 0;
+  bottom: 0;
 }
 </style>
