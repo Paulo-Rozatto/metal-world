@@ -1,19 +1,19 @@
 <template>
   <div>
-    <b-navbar class="main" type="dark" toggleable="lg" fixed="top">
-      <b-navbar-brand>Metal World</b-navbar-brand>
+    <b-navbar ref="container" type="dark" toggleable="lg" fixed="top">
+      <b-navbar-brand class="title">Metal World</b-navbar-brand>
 
-      <b-navbar-toggle target="side-nav"/>
+      <b-navbar-toggle class="tg-btn" target="side-nav"/>
 
       <b-collapse is-nav id="hori-nav">
-        <b-navbar-nav class="ml-auto">
-          <slot></slot>
-        </b-navbar-nav>
+        <b-nav class="ml-auto ">
+          <slot class="nav-item"></slot>
+        </b-nav>
       </b-collapse>
 
       <b-collapse id="side-nav">
         <b-button size="sm" class="close-btn" variant="danger" v-b-toggle.side-nav>x</b-button>
-        <b-nav vertical>
+        <b-nav vertical style="margin-top: 10%;">
           <slot></slot>
         </b-nav>
         <div class="layer" v-b-toggle.side-nav></div>
@@ -34,15 +34,20 @@ export default {
         ? (this.$refs.container.style.background = "rgba(17,17,17,1)")
         : (this.$refs.container.style.background = "rgba(17,17,17,0)");
     }
+  },
+  mounted() {
+    if (this.bgDinamic) {
+      window.addEventListener("scroll", () => {
+        this.scroll(window.scrollY);
+      });
+    } else {
+      this.$refs.container.style.background = "rgba(17,17,17,1)";
+    }
   }
 };
 </script>
 
 <style scoped>
-.main{
-  background: #111;
-}
-
 #side-nav {
   position: fixed;
   right: 0;
@@ -50,7 +55,7 @@ export default {
   top: 0;
   bottom: 0;
   transition: 0.1s;
-  background: #555;
+  background: #444;
 }
 
 .layer {
@@ -67,7 +72,13 @@ export default {
   right: 2px;
 }
 
-.close-btn-cross {
-  background: #bdc3c7;
+.title{
+  font-size: 1.5em;
+  color: #fff;
+  text-shadow: 3px 2px 3px #000;
+}
+
+.tg-btn{
+  background: rgba(100, 100, 100, 0.7);
 }
 </style>

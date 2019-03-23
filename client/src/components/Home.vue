@@ -1,10 +1,10 @@
 <template>
   <div>
     <div class="header">
-      <Menu>
-        <b-nav-item class="nav-item">Home</b-nav-item>
-        <b-nav-item class="nav-item">Catalog</b-nav-item>
-        <b-nav-item class="nav-item">About</b-nav-item>
+      <Menu bg-dinamic>
+        <b-nav-item to="/" class="nav-item">Home</b-nav-item>
+        <b-nav-item to="/catalog" class="nav-item">Catalog</b-nav-item>
+        <b-nav-item to="/about" class="nav-item">About</b-nav-item>
       </Menu>
     </div>
 
@@ -52,7 +52,6 @@ export default {
     position: absolute;
     width: 95%;
     height: auto;
-    /* max-height: 70%; */
     top: 30%;
   }
 }
@@ -80,44 +79,15 @@ export default {
   min-height: 100%;
 }
 
-.nav-item > a {
-  text-align: center;
-  color: #fef;
-}
-
-.nav-item:hover {
-  background: #444;
-}
-
-.content {
-  min-height: 300px;
-  padding: 5%;
-  margin: 1% 5%;
-  background-color: #777;
-  box-shadow: 10px 10px 10px #222;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 1.2em;
-  color: white;
-  text-align: justify;
+.full-height {
+  position: absolute;
+  top: 0;
+  bottom: 0;
 }
 
 .content img {
   position: initial;
   width: auto;
   margin: 3%;
-}
-
-.img-left {
-  float: left;
-}
-
-.img-right {
-  float: right;
-}
-
-.full-height {
-  position: absolute;
-  top: 0;
-  bottom: 0;
 }
 </style>
