@@ -1,13 +1,5 @@
 <template>
   <div>
-    <div>
-      <Menu>
-        <b-nav-item to="/" class="nav-item">Home</b-nav-item>
-        <b-nav-item to="/catalog" class="nav-item">Catalog</b-nav-item>
-        <b-nav-item to="/about" class="nav-item">About</b-nav-item>
-      </Menu>
-    </div>
-
     <b-container class="main">
       <b-row class="content">
         <h1>List of bands</h1>

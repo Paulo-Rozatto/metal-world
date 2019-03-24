@@ -1,12 +1,17 @@
 <template>
   <div>
-    <b-navbar ref="container" type="dark" toggleable="lg" fixed="top">
+    <b-navbar
+      :class="[ scrollY < 50 && (this.$route.path === '/') ? 'bg-transparent': 'bg-dark']"
+      type="dark"
+      toggleable="lg"
+      fixed="top"
+    >
       <b-navbar-brand class="title">Metal World</b-navbar-brand>
 
       <b-navbar-toggle class="tg-btn" target="side-nav"/>
 
       <b-collapse is-nav id="hori-nav">
-        <b-nav class="ml-auto ">
+        <b-nav class="ml-auto">
           <slot class="nav-item"></slot>
         </b-nav>
       </b-collapse>
@@ -25,24 +30,19 @@
 <script>
 export default {
   name: "Menu",
-  props: {
-    bgDinamic: Boolean
-  },
-  methods: {
-    scroll(scrollY) {
-      scrollY > 50
-        ? (this.$refs.container.style.background = "rgba(17,17,17,1)")
-        : (this.$refs.container.style.background = "rgba(17,17,17,0)");
+  data() {
+    return {
+      isTransparent: false,
+      scrollY: Number
     }
+  },
+  props: {
+    route: String
   },
   mounted() {
-    if (this.bgDinamic) {
-      window.addEventListener("scroll", () => {
-        this.scroll(window.scrollY);
-      });
-    } else {
-      this.$refs.container.style.background = "rgba(17,17,17,1)";
-    }
+    window.addEventListener("scroll", () => {
+      this.scrollY = window.scrollY;
+    });
   }
 };
 </script>
@@ -72,13 +72,21 @@ export default {
   right: 2px;
 }
 
-.title{
+.title {
   font-size: 1.5em;
   color: #fff;
   text-shadow: 3px 2px 3px #000;
 }
 
-.tg-btn{
+.tg-btn {
   background: rgba(100, 100, 100, 0.7);
+}
+
+.bg-transpaent {
+  background: rgba(17, 17, 17, 0);
+}
+
+.bg-dark {
+  background: rgba(17, 17, 17, 1);
 }
 </style>

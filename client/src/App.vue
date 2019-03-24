@@ -1,12 +1,29 @@
 <template>
   <div id="app">
+    <div class="header">
+      <Menu :route="$route.path">
+        <b-nav-item to="/" class="nav-item" v-b-toggle.side-nav>Home</b-nav-item>
+        <b-nav-item to="/catalog" class="nav-item" v-b-toggle.side-nav>Catalog</b-nav-item>
+        <b-nav-item to="/about" class="nav-item" v-b-toggle.side-nav >About</b-nav-item>
+      </Menu>
+    </div>
     <router-view/>
   </div>
 </template>
 
 <script>
+import Menu from './components/Menu'
+
 export default {
-  name: "App"
+  name: "App",
+  components: {
+    Menu
+  },
+  data() {
+    return {
+      dinamic: false
+    }
+  },
 };
 </script>
 

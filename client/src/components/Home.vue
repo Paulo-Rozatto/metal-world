@@ -1,13 +1,5 @@
 <template>
   <div>
-    <div class="header">
-      <Menu bg-dinamic>
-        <b-nav-item to="/" class="nav-item">Home</b-nav-item>
-        <b-nav-item to="/catalog" class="nav-item">Catalog</b-nav-item>
-        <b-nav-item to="/about" class="nav-item">About</b-nav-item>
-      </Menu>
-    </div>
-
     <b-container fluid class="full-height" style="background-color: #555;">
       <b-row class="banner">
         <b-col>
@@ -33,13 +25,8 @@
 </template>
 
 <script>
-import Menu from "./Menu";
-
 export default {
   name: "Home",
-  components: {
-    Menu
-  }
 };
 </script>
 
@@ -50,9 +37,10 @@ export default {
   }
   img {
     position: absolute;
-    width: 95%;
+    width: 85%;
     height: auto;
-    top: 30%;
+    max-height: 80%;
+    top: 25%;
   }
 }
 
