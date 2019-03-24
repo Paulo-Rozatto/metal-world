@@ -1,9 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import Home from '@/components/Home'
-import About from '@/components/About'
-import Catalog from '@/components/Catalog'
+import Home from '@/views/Home'
+import About from '@/views/About'
+import Catalog from '@/views/Catalog'
+import SignUp from '@/views/SignUp'
 
 Vue.use(Router)
 
@@ -23,6 +24,11 @@ export default new Router({
       path: '/catalog',
       name: 'Catalog',
       component: Catalog
+    },
+    {
+      path: '/signup',
+      name: 'SignUp',
+      component: SignUp
     }
   ]
 })

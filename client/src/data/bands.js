@@ -2,7 +2,6 @@ export default [
   {
     name: 'Hair Knights',
     genres: 'Power Metal, Glam Metal',
-    test: 'a',
     creation_year: '1995'
   },
   {

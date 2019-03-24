@@ -10,14 +10,10 @@
 </template>
 
 <script>
-import Menu from "./Menu";
 import { mapGetters } from 'vuex'
 
 export default {
   name: "Catalog",
-  components: {
-    Menu
-  },
   computed: {
     ...mapGetters({
       bands: 'getBandsMin'

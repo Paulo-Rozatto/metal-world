@@ -2,9 +2,11 @@
   <div id="app">
     <div class="header">
       <Menu :route="$route.path">
-        <b-nav-item to="/" class="nav-item" v-b-toggle.side-nav>Home</b-nav-item>
-        <b-nav-item to="/catalog" class="nav-item" v-b-toggle.side-nav>Catalog</b-nav-item>
-        <b-nav-item to="/about" class="nav-item" v-b-toggle.side-nav >About</b-nav-item>
+        <b-nav-item to="/" class="nav-item">Home</b-nav-item>
+        <b-nav-item to="/catalog" class="nav-item" v>Catalog</b-nav-item>
+        <b-nav-item to="/about" class="nav-item">About</b-nav-item>
+        <b-nav-item to="/about" class="nav-item" slot="sign">Login</b-nav-item>
+        <b-nav-item to="/signup" class="nav-item" slot="sign">Sign up</b-nav-item>
       </Menu>
     </div>
     <router-view/>
@@ -12,7 +14,7 @@
 </template>
 
 <script>
-import Menu from './components/Menu'
+import Menu from "./components/Menu";
 
 export default {
   name: "App",
@@ -22,13 +24,13 @@ export default {
   data() {
     return {
       dinamic: false
-    }
-  },
+    };
+  }
 };
 </script>
 
 <style>
-body{
+body {
   background-color: #555;
 }
 
@@ -67,7 +69,7 @@ body{
   border-radius: 8%;
 }
 
-h1{
+h1 {
   padding: 2% 0;
 }
 </style>

@@ -13,12 +13,14 @@
       <b-collapse is-nav id="hori-nav">
         <b-nav class="ml-auto">
           <slot class="nav-item"></slot>
+          <slot name="sign"></slot>
         </b-nav>
       </b-collapse>
 
       <b-collapse id="side-nav">
         <b-button size="sm" class="close-btn" variant="danger" v-b-toggle.side-nav>x</b-button>
-        <b-nav vertical style="margin-top: 10%;">
+        <b-nav vertical style="margin-top: 10%;" v-b-toggle.side-nav>
+          <slot name="sign"></slot>
           <slot></slot>
         </b-nav>
         <div class="layer" v-b-toggle.side-nav></div>
@@ -33,13 +35,13 @@ export default {
   data() {
     return {
       isTransparent: false,
-      scrollY: Number
+      scrollY: 0
     }
   },
   props: {
     route: String
   },
-  mounted() {
+  created() {
     window.addEventListener("scroll", () => {
       this.scrollY = window.scrollY;
     });
