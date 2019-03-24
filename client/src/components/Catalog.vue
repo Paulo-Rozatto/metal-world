@@ -19,32 +19,17 @@
 
 <script>
 import Menu from "./Menu";
+import { mapGetters } from 'vuex'
 
 export default {
   name: "Catalog",
   components: {
     Menu
   },
-  data() {
-    return {
-      bands: [
-        {
-          name: "Hair Knights",
-          genres: "Power Metal, Glam Metal",
-          creation_year: "1995"
-        },
-        {
-          name: "Hammer Nemesis",
-          genres: "Death Metal",
-          creation_year: "1989"
-        },
-        {
-          name: "Wandering Ghosts",
-          genres: "Symphonic Metal",
-          creation_year: "1999"
-        }
-      ]
-    };
-  }
+  computed: {
+    ...mapGetters({
+      bands: 'getBandsMin'
+    })
+  },
 };
 </script>
