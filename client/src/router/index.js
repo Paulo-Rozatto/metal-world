@@ -5,6 +5,8 @@ import Home from '@/views/Home'
 import About from '@/views/About'
 import Catalog from '@/views/Catalog'
 import SignUp from '@/views/SignUp'
+import Login from '@/views/Login'
+import BandProfile from '@/views/BandProfile'
 
 Vue.use(Router)
 
@@ -29,6 +31,16 @@ export default new Router({
       path: '/signup',
       name: 'SignUp',
       component: SignUp
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: Login
+    },
+    {
+      path: '/band/:id',
+      name: 'BandProfile',
+      component: BandProfile
     }
   ]
 })

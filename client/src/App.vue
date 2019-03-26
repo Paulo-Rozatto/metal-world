@@ -5,7 +5,7 @@
         <b-nav-item to="/" class="nav-item">Home</b-nav-item>
         <b-nav-item to="/catalog" class="nav-item" v>Catalog</b-nav-item>
         <b-nav-item to="/about" class="nav-item">About</b-nav-item>
-        <b-nav-item to="/about" class="nav-item" slot="sign">Login</b-nav-item>
+        <b-nav-item to="/login" class="nav-item" slot="sign">Login</b-nav-item>
         <b-nav-item to="/signup" class="nav-item" slot="sign">Sign up</b-nav-item>
       </Menu>
     </div>

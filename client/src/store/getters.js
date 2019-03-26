@@ -1,4 +1,7 @@
 export default{
+  getBandById: (state) => (id) => {
+    return state.bands.find(band => band.id === id)
+  },
   getBands: (state) => {
     return state.bands
   },
