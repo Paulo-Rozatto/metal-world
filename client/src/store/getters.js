@@ -1,6 +1,9 @@
-export default{
+export default {
   getBandById: (state) => (id) => {
     return state.bands.find(band => band.id === id)
+  },
+  getBand: (state) => (email, password) => {
+    return state.bands.find(band => band.email === email && band.password === password)
   },
   getBands: (state) => {
     return state.bands
@@ -14,6 +17,12 @@ export default{
   },
   getGenres: (state) => {
     return state.genres
+  },
+  getPersonById: (state) => (id) => {
+    return state.persons.find(person => person.id === id)
+  },
+  getPerson: (state) => (email, password) => {
+    return state.persons.find(person => person.email === email && person.password === password)
   },
   getPersons: (state) => {
     return state.persons

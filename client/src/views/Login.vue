@@ -43,7 +43,8 @@ export default {
         password: ""
       },
       show: true,
-      failed: false
+      failed: false,
+      test: null
     };
   },
   methods: {
@@ -58,18 +59,44 @@ export default {
     },
     onSubmit(evt) {
       evt.preventDefault();
-      const band = this.$store.state.bands.find(
-        band =>
-          band.email === this.form.email && band.password === this.form.password
+      const band = this.$store.getters.getBand(
+        this.form.email,
+        this.form.password
       );
+
       if (band) {
-        this.$router.replace({ name: "BandProfile", params: { id: band.id } });
+        this.$router.push({ name: "BandProfile", params: { id: band.id } });
       } else {
-        console.log('failed')
-        this.failed = true;
-        this.clear();
+        const person = this.$store.getters.getPerson(
+          this.form.email,
+          this.form.password
+        );
+        if (person) {
+          this.$router.push({
+            name: "PersonProfile",
+            params: { id: person.id }
+          });
+        } else {
+          console.log("failed");
+          this.failed = true;
+          this.clear();
+        }
       }
     }
+    // onSubmit(evt) {
+    //   evt.preventDefault();
+    //   const band = this.$store.state.bands.find(
+    //     band =>
+    //       band.email === this.form.email && band.password === this.form.password
+    //   );
+    //   if (band) {
+    //     this.$router.push({ name: "BandProfile", params: { id: band.id } });
+    //   } else {
+    //     console.log('failed')
+    //     this.failed = true;
+    //     this.clear();
+    //   }
+    // }
   }
 };
 </script>

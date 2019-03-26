@@ -7,6 +7,7 @@ import Catalog from '@/views/Catalog'
 import SignUp from '@/views/SignUp'
 import Login from '@/views/Login'
 import BandProfile from '@/views/BandProfile'
+import PersonProfile from '@/views/PersonProfile'
 
 Vue.use(Router)
 
@@ -41,6 +42,11 @@ export default new Router({
       path: '/band/:id',
       name: 'BandProfile',
       component: BandProfile
+    },
+    {
+      path: '/person/:id',
+      name: 'PersonProfile',
+      component: PersonProfile
     }
   ]
 })
