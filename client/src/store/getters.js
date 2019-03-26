@@ -14,5 +14,8 @@ export default{
   },
   getGenres: (state) => {
     return state.genres
+  },
+  getPersons: (state) => {
+    return state.persons
   }
 }
