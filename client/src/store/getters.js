@@ -2,6 +2,13 @@ export default {
   getBandById: (state) => (id) => {
     return state.bands.find(band => band.id === id)
   },
+  getBandsById: (state) => (ids) => {
+    let bands = []
+    ids.forEach(id => bands.push(
+      state.bands.find(band => band.id === id)
+    ))
+    return bands
+  },
   getBand: (state) => (email, password) => {
     return state.bands.find(band => band.email === email && band.password === password)
   },

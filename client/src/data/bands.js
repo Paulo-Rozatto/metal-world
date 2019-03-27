@@ -19,7 +19,17 @@ export default [
     password: 'hammer123',
     name: 'Hammer Nemesis',
     genres: ['Death Metal'],
-    creation_year: '1989'
+    creation_year: '1989',
+    concerts: [
+      {
+        location: 'Toronto',
+        date: '27/03/2019'
+      },
+      {
+        location: 'Winnipeg',
+        date: '28/03/2019'
+      }
+    ]
   },
   {
     id: '3',
@@ -27,6 +37,12 @@ export default [
     password: 'ghost123',
     name: 'Wandering Ghosts',
     genres: ['Symphonic Metal'],
-    creation_year: '1999'
+    creation_year: '1999',
+    concerts: [
+      {
+        location: 'Vancouver',
+        date: '27/03/2019'
+      }
+    ]
   }
 ]
