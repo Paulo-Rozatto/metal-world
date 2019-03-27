@@ -5,7 +5,13 @@ export default [
     password: 'hair123',
     name: 'Hair Knights',
     genres: ['Power Metal', 'Glam Metal'],
-    creation_year: '1995'
+    creation_year: '1995',
+    concerts: [
+      {
+        location: 'Winnipeg',
+        date: '26/03/2019'
+      }
+    ]
   },
   {
     id: '2',

@@ -6,22 +6,22 @@
     <b-row align-h="between" class="content">
       <b-col class="col" cols="4">
         <h3>My information</h3>
-        <hr/>
+        <hr>
         <ul class="no-padding">
           <li>
-            <h4>Name: {{band.name}}</h4>
+            <h5>Name: {{band.name}}</h5>
           </li>
           <li>
-            <h4>Email: {{band.email}}</h4>
+            <h5>Email: {{band.email}}</h5>
           </li>
           <li>
-            <h4>Creation Year: {{band.creation_year}}</h4>
+            <h5>Creation Year: {{band.creation_year}}</h5>
           </li>
           <li>
-            <h4>Genres:</h4>
+            <h5>Genres:</h5>
             <ul>
               <li class="genres" v-for="(gender, index) in band.genres" :key="index">
-                <h4>{{'\t' + gender}}</h4>
+                <h5>{{'\t' + gender}}</h5>
               </li>
             </ul>
           </li>
@@ -29,7 +29,27 @@
       </b-col>
       <b-col cols="8">
         <h1>Concerts</h1>
-        <p>No schelduled concerts.</p>
+        <b-form inline>
+          <label class="sr-only" for="locationInput">Name</label>
+          <b-input
+            v-model="newConcert.location"
+            class="mb-2 mr-sm-2 mb-sm-0"
+            id="locationInput"
+            placeholder="Location"
+          />
+
+          <label class="sr-only" for="dateInput">Date</label>
+          <b-input
+            v-model="newConcert.date"
+            class="mb-2 mr-sm-2 mb-sm-0"
+            id="dateInput"
+            placeholder="Date"
+          />
+
+          <b-button @click="addConcert" variant="primary">Add</b-button>
+        </b-form>
+        <b-table class="padding-top" striped hover dark responsive :items="band.concerts"></b-table>
+        <p v-if="band.concerts.length < 1">No scheduled concerts</p>
       </b-col>
     </b-row>
   </b-container>
@@ -37,13 +57,29 @@
 
 <script>
 import { mapGetters } from "vuex";
+import { mapActions } from "vuex";
 
 export default {
   name: "BandProfile",
   data() {
     return {
-      band: null
+      band: null,
+      newConcert: {
+        location: "",
+        date: ""
+      }
     };
+  },
+  methods: {
+    addConcert() {
+      const payload = {
+        id: this.band.id,
+        location: this.newConcert.location,
+        date: this.newConcert.date
+      }
+      this.registerConcert(payload)
+    },
+    ...mapActions(['registerConcert'])
   },
   mounted() {
     this.band = this.$store.getters.getBandById(this.$route.params.id);
@@ -52,8 +88,12 @@ export default {
 </script>
 
 <style scoped>
-.no-padding{
+.no-padding {
   padding: 0;
+}
+
+.padding-top {
+  padding-top: 0.5em;
 }
 li {
   list-style-type: none;
@@ -71,7 +111,7 @@ hr {
   border-right: 1px solid white;
 }
 
-.content{
+.content {
   padding-left: 2%;
 }
 </style>
