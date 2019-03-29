@@ -2,7 +2,9 @@
   <b-container class="main">
     <b-row align-h="center" class="content">
       <b-col align-self="center" cols="10">
-        <p v-if="failed" style="color: #f54;">Invalid email or password!</p>
+        
+        <b-alert variant="danger" :show="failed" dismissible>Invalid email or password</b-alert>
+
         <b-form @submit="onSubmit" v-if="show">
           <b-form-group id="emailInputGroup" label="Email:" label-for="emailInput">
             <b-form-input
@@ -22,6 +24,13 @@
               required
               placeholder="Enter the password"
             />
+          </b-form-group>
+
+          <b-form-group label="I'm a:">
+            <b-form-radio-group required>
+              <b-form-radio v-model="selected" name="bandRadio" value="Band">Band</b-form-radio>
+              <b-form-radio v-model="selected" name="personRadio" value="Person">Person</b-form-radio>
+            </b-form-radio-group>
           </b-form-group>
 
           <b-button type="submit" variant="dark">Login</b-button>
@@ -44,7 +53,7 @@ export default {
       },
       show: true,
       failed: false,
-      test: null
+      selected: ""
     };
   },
   methods: {
@@ -64,7 +73,7 @@ export default {
         this.form.password
       );
 
-      if (band) {
+      if (this.selected === "band") {
         this.$router.push({ name: "BandProfile", params: { id: band.id } });
       } else {
         const person = this.$store.getters.getPerson(
@@ -83,20 +92,6 @@ export default {
         }
       }
     }
-    // onSubmit(evt) {
-    //   evt.preventDefault();
-    //   const band = this.$store.state.bands.find(
-    //     band =>
-    //       band.email === this.form.email && band.password === this.form.password
-    //   );
-    //   if (band) {
-    //     this.$router.push({ name: "BandProfile", params: { id: band.id } });
-    //   } else {
-    //     console.log('failed')
-    //     this.failed = true;
-    //     this.clear();
-    //   }
-    // }
   }
 };
 </script>

@@ -9,6 +9,7 @@ import getters from './getters'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
+  strict: true,
   state,
   mutations,
   actions,

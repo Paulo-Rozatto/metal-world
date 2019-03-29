@@ -12,7 +12,7 @@
 
     <b-row class="content" v-if="typeAccount !== null">
       <b-col v-if="typeAccount === accountTypes[0]">
-        <BandForm />
+        <BandForm/>
       </b-col>
       <b-col v-else>
         <PersonForm/>
@@ -24,6 +24,7 @@
 <script>
 import BandForm from "@/components/forms/BandForm";
 import PersonForm from "@/components/forms/PersonForm";
+import API from "@/services/Api.js";
 
 export default {
   name: "SignUp",
@@ -34,8 +35,16 @@ export default {
   data() {
     return {
       typeAccount: null,
-      accountTypes: ["Band", "Person"]
+      accountTypes: ["Band", "Person"],
+      test: null
     };
+  },
+  mounted() {
+    API.get("/band")
+      .then(response => {
+        this.test = response;
+      })
+      .catch(err => (this.test = err));
   }
 };
 </script>

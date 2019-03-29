@@ -48,6 +48,15 @@
       />
     </b-form-group>
 
+    <b-alert variant="success" :show="response.success">
+      <p>Signed Up!</p>
+      <p>
+        <router-link to="/login">Click here to login</router-link>
+      </p>
+    </b-alert>
+    <b-alert variant="danger" :show="response.error" dismissible>{{response.msg}}</b-alert>
+    <br>
+
     <center>
       <b-btn type="submit" variant="dark" submit>Submit</b-btn>
       <b-button type="reset" variant="danger">Reset</b-button>
@@ -70,7 +79,12 @@ export default {
         genres: [],
         creation_year: ""
       },
-      show: true
+      show: true,
+      response: {
+        success: false,
+        error: false,
+        msg: ""
+      }
     };
   },
   methods: {
@@ -96,8 +110,19 @@ export default {
         genres: this.genres,
         creation_year: this.form.creation_year
       };
-      this.registerBand(payload);
-      this.clear();
+      this.registerBand(payload)
+        .then(res => {
+          if (res.data.success) {
+            this.response.success = true;
+            this.response.error = false;
+            this.clear();
+          } else {
+            this.response.success = false;
+            this.response.error = true;
+            this.response.msg = res.data.message;
+          }
+        })
+        .catch(err => console.log(err));
     },
     onReset(evt) {
       evt.preventDefault();
