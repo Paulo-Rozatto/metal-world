@@ -77,10 +77,21 @@ router.post('/signup', (req, res) => {
   })
 }) // end of sign up endpoint
 
-router.post('/login',
-  passport.authenticate('local', { session: false }),
-  (req, res) => {
-    res.json(req.user)
-  })
+router.post('/login', function (req, res, next) {
+  passport.authenticate('local', function (err, user, info) {
+    if (err) { return next(err) }
+    // if (!user) { return res.redirect('/login') }
+    req.logIn(user, function (err) {
+      if (err) { return next(err) }
+      return res.json(user)
+    })
+  })(req, res, next)
+})
+
+// router.post('/login',
+//   passport.authenticate('local', { session: false }),
+//   (req, res) => {
+//     res.json(req.user)
+//   })
 
 module.exports = router

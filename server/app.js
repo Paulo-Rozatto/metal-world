@@ -1,6 +1,7 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const passport = require('passport')
+const cors = require('cors')
 
 const URI = require('./config/keys').mongoURI
 
@@ -16,12 +17,12 @@ mongoose.connect(URI, { useNewUrlParser: true })
   .catch((err) => console.log(err))
 
 app.use(express.json())
+app.use(cors())
 // Express body parser
 app.use(express.urlencoded({ extended: true }))
 
 // Passport middleware
 app.use(passport.initialize())
-app.use(passport.session())
 
 // Routes
 app.use('/band', require('./routes/api/band.js'))
