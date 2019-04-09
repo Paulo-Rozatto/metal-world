@@ -14,6 +14,7 @@ export default{
     state.user.password = password
   },
   logoffUser: (state) => {
+    state.isLoggedIn = false
     state.user.email = ''
     state.user.password = ''
   }

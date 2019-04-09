@@ -2,6 +2,10 @@
   <b-container class="main">
     <b-row align-h="center" class="content">
       <b-col align-self="center" cols="10">
+<<<<<<< HEAD
+=======
+        
+>>>>>>> 1d50198f1efa6e3f9598e0f83e60025f140c29ad
         <b-alert variant="danger" :show="failed" dismissible>Invalid email or password</b-alert>
 
         <b-form @submit="onSubmit" v-if="show">
@@ -27,8 +31,13 @@
 
           <b-form-group label="I'm a:">
             <b-form-radio-group required>
+<<<<<<< HEAD
               <b-form-radio v-model="selected" name="bandRadio" value="band">Band</b-form-radio>
               <b-form-radio v-model="selected" name="personRadio" value="person">Person</b-form-radio>
+=======
+              <b-form-radio v-model="selected" name="bandRadio" value="Band">Band</b-form-radio>
+              <b-form-radio v-model="selected" name="personRadio" value="Person">Person</b-form-radio>
+>>>>>>> 1d50198f1efa6e3f9598e0f83e60025f140c29ad
             </b-form-radio-group>
           </b-form-group>
 
