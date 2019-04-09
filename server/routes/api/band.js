@@ -88,10 +88,4 @@ router.post('/login', function (req, res, next) {
   })(req, res, next)
 })
 
-// router.post('/login',
-//   passport.authenticate('local', { session: false }),
-//   (req, res) => {
-//     res.json(req.user)
-//   })
-
 module.exports = router

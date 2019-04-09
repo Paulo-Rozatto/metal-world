@@ -76,27 +76,13 @@ export default {
         });
         if (res.isLogged) {
           this.$store.commit("loginUser", res.band);
+          this.$router.push({ name: "BandProfile", params: { id: res.band._id } });
         } else {
           this.$store.commit("logoffUser");
+          this.failed = true
+          this.clear()
         }
-        // this.$router.push({ name: "BandProfile", params: { id: band.id } });
       }
-      // else {
-      //   const person = this.$store.getters.getPerson(
-      //     this.form.email,
-      //     this.form.password
-      //   );
-      //   if (person) {
-      //     this.$router.push({
-      //       name: "PersonProfile",
-      //       params: { id: person.id }
-      //     });
-      //   } else {
-      //     console.log("failed");
-      //     this.failed = true;
-      //     this.clear();
-      //   }
-      // }
     }
   }
 };

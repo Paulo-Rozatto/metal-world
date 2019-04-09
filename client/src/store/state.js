@@ -4,10 +4,7 @@ import persons from '@/data/persons'
 
 export default {
   isLoggedIn: false,
-  user: {
-    email: '',
-    password: null
-  },
+  user: {},
   bands,
   genres,
   persons

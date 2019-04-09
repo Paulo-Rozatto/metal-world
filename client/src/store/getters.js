@@ -1,4 +1,12 @@
 export default {
+  isCorrectId: (state) => (id) => {
+    console.log('state: ' + state.user._id)
+    console.log('param: ' + id)
+    return state.user._id === id
+  },
+  getUser: (state) => {
+    return state.user
+  },
   getBandById: (state) => (id) => {
     return state.bands.find(band => band.id === id)
   },

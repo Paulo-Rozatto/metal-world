@@ -63,7 +63,13 @@ export default {
   name: "BandProfile",
   data() {
     return {
-      band: null,
+      band: {
+        name: 'Not allowed or not found',
+        email: 'noemail@nowhere.com',
+        creation_year: '-1',
+        genres: [],
+        concerts: []
+      },
       newConcert: {
         location: "",
         date: ""
@@ -82,7 +88,9 @@ export default {
     ...mapActions(['registerConcert'])
   },
   mounted() {
-    this.band = this.$store.getters.getBandById(this.$route.params.id);
+    if(this.$store.getters.isCorrectId(this.$route.params.id)){
+       this.band = this.$store.getters.getUser
+     }
   }
 };
 </script>

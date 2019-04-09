@@ -8,14 +8,12 @@ export default{
   addPerson: (state, person) => {
     state.persons.push(person)
   },
-  loginUser: (state, {email, password}) => {
+  loginUser: (state, user) => {
     state.isLoggedIn = true
-    state.user.email = email
-    state.user.password = password
+    state.user = user
   },
   logoffUser: (state) => {
     state.isLoggedIn = false
-    state.user.email = ''
-    state.user.password = ''
+    state.user = null
   }
 }

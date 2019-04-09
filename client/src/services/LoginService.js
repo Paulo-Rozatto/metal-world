@@ -5,10 +5,7 @@ let loginBand = async (band) => {
     const response = await API.post('/band/login', band)
     return ({
       isLogged: response.statusText === 'OK',
-      band: {
-        email: response.data.email,
-        password: response.data.password
-      }
+      band: response.data
     })
   } catch (err) {
     return ({
