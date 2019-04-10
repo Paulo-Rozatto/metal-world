@@ -10,7 +10,8 @@ router.get('/', (req, res) => res.send('hi'))
 router.post('/signup', (req, res) => {
   const { body } = req
   const { password } = body
-  let { email, name, creation_year, genres, concerts } = body
+  let creationYear = body.creation_year
+  let { email, name, genres, concerts } = body
 
   if (!email) {
     return res.send({
@@ -58,7 +59,8 @@ router.post('/signup', (req, res) => {
     newBand.email = email
     newBand.password = newBand.generateHash(password)
     newBand.name = name
-    newBand.creation_year = creation_year
+    // To Do: consitence in camel case creation_year creationYear
+    newBand.creation_year = creationYear
     newBand.concerts = concerts
     newBand.genres = genres
 
@@ -79,13 +81,44 @@ router.post('/signup', (req, res) => {
 
 router.post('/login', function (req, res, next) {
   passport.authenticate('local', function (err, user, info) {
-    if (err) { return next(err) }
-    // if (!user) { return res.redirect('/login') }
+    if (err) return next(err)
     req.logIn(user, function (err) {
       if (err) { return next(err) }
       return res.json(user)
     })
   })(req, res, next)
+})
+
+router.post('/addConcert', (req, res) => {
+  let { email, concert } = req.body
+  Band.findOne({ email: email }, (err, band) => {
+    if (err) {
+      res.send({
+        success: false,
+        msg: err.toString()
+      })
+    } else if (!band) {
+      res.send({
+        success: false,
+        msg: 'No band was found'
+      })
+    } else {
+      band.concerts.push(concert)
+      band.save((err, band) => {
+        if (err) {
+          return res.send({
+            success: false,
+            message: err.toString()
+          })
+        }
+        return res.send({
+          success: true,
+          message: 'Concerts updated',
+          newConcert: concert
+        })
+      })
+    }
+  })
 })
 
 module.exports = router

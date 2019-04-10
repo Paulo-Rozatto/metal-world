@@ -20,11 +20,6 @@ export default {
   name: "App",
   components: {
     Menu
-  },
-  data() {
-    return {
-      dinamic: false
-    };
   }
 };
 </script>

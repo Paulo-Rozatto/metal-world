@@ -58,15 +58,16 @@
 <script>
 import { mapGetters } from "vuex";
 import { mapActions } from "vuex";
+import CRUD from "@/services/CRUD_Band";
 
 export default {
   name: "BandProfile",
   data() {
     return {
       band: {
-        name: 'Not allowed or not found',
-        email: 'noemail@nowhere.com',
-        creation_year: '-1',
+        name: "Not allowed or not found",
+        email: "noemail@nowhere.com",
+        creation_year: "-1",
         genres: [],
         concerts: []
       },
@@ -77,20 +78,32 @@ export default {
     };
   },
   methods: {
-    addConcert() {
+    async addConcert() {
       const payload = {
-        id: this.band.id,
-        location: this.newConcert.location,
-        date: this.newConcert.date
+        email: this.band.email,
+        password: this.newConcert.password,
+        concert: {
+          location: this.newConcert.location,
+          date: this.newConcert.date
+        }
+      };
+      if(payload.concert.location && payload.concert.date){
+        let res = await CRUD.addConcert(payload)
+        console.log('res.success: ', res.success)
+        if (res.success){
+          console.log('Succes!')
+          this.band.concerts.push(res.newConcert)
+        }
+        else{
+          console.log(res.msg)
+        }
       }
-      this.registerConcert(payload)
-    },
-    ...mapActions(['registerConcert'])
+    }
   },
   mounted() {
-    if(this.$store.getters.isCorrectId(this.$route.params.id)){
-       this.band = this.$store.getters.getUser
-     }
+    if (this.$store.getters.isCorrectId(this.$route.params.id)) {
+      this.band = this.$store.getters.getUser;
+    }
   }
 };
 </script>

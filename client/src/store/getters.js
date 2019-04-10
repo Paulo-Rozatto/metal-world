@@ -1,7 +1,5 @@
 export default {
   isCorrectId: (state) => (id) => {
-    console.log('state: ' + state.user._id)
-    console.log('param: ' + id)
     return state.user._id === id
   },
   getUser: (state) => {
