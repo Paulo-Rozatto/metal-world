@@ -10,7 +10,7 @@ router.get('/', (req, res) => res.send('hi'))
 router.post('/signup', (req, res) => {
   const { body } = req
   const { password } = body
-  let { email, name, creationYear, genres, concerts } = body
+  let { email, name, creation_year, genres, concerts } = body
 
   if (!email) {
     return res.send({
@@ -58,7 +58,7 @@ router.post('/signup', (req, res) => {
     newBand.email = email
     newBand.password = newBand.generateHash(password)
     newBand.name = name
-    newBand.creationYear = creationYear
+    newBand.creation_year = creation_year
     newBand.concerts = concerts
     newBand.genres = genres
 

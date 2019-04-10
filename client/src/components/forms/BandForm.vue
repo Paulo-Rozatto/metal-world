@@ -107,7 +107,7 @@ export default {
         email: this.form.email,
         password: this.form.password,
         name: this.form.name,
-        genres: this.genres,
+        genres: this.form.genres,
         creation_year: this.form.creation_year
       };
       this.registerBand(payload)

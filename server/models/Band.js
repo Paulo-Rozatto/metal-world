@@ -24,7 +24,7 @@ let bandSchema = new Schema({
     type: String,
     default: ''
   },
-  creationYear: {
+  creation_year: {
     type: String,
     default: ''
   },
