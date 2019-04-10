@@ -105,6 +105,8 @@ export default {
 
         if (res.success) {
           this.band.concerts.push(res.newConcert);
+          this.newConcert.location = "",
+          this.newConcert.date = ""
         } else {
           console.log(res.msg);
         }
