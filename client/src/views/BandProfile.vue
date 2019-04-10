@@ -47,8 +47,19 @@
           />
 
           <b-button @click="addConcert" variant="primary">Add</b-button>
+          <b-button :disabled="selected.length < 1" @click="rmConcert" variant="danger">rm</b-button>
         </b-form>
-        <b-table class="padding-top" striped hover dark responsive :items="band.concerts"></b-table>
+        <b-table
+          class="padding-top"
+          striped
+          hover
+          dark
+          responsive
+          selectable
+          :select-mode="selectMode"
+          @row-selected="rowSelected"
+          :items="band.concerts"
+        ></b-table>
         <p v-if="band.concerts.length < 1">No scheduled concerts</p>
       </b-col>
     </b-row>
@@ -74,7 +85,9 @@ export default {
       newConcert: {
         location: "",
         date: ""
-      }
+      },
+      selected: [],
+      selectMode: "single"
     };
   },
   methods: {
@@ -87,17 +100,30 @@ export default {
           date: this.newConcert.date
         }
       };
-      if(payload.concert.location && payload.concert.date){
-        let res = await CRUD.addConcert(payload)
-        console.log('res.success: ', res.success)
-        if (res.success){
-          console.log('Succes!')
-          this.band.concerts.push(res.newConcert)
-        }
-        else{
-          console.log(res.msg)
+      if (payload.concert.location && payload.concert.date) {
+        let res = await CRUD.addConcert(payload);
+
+        if (res.success) {
+          this.band.concerts.push(res.newConcert);
+        } else {
+          console.log(res.msg);
         }
       }
+    },
+    async rmConcert() {
+      if (this.selected.length >= 1) {
+        let res = await CRUD.rmConcert({
+          email: this.band.email,
+          concert: this.selected
+        });
+        if(res.success) {
+          let index = this.band.concerts.indexOf(this.selected)
+          this.band.concerts.splice(index,1)
+        }
+      }
+    },
+    rowSelected(items) {
+      this.selected = items;
     }
   },
   mounted() {

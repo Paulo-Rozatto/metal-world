@@ -21,6 +21,28 @@ let addConcert = async (band) => {
   }
 }
 
+let rmConcert = async (concert) => {
+  try {
+    const response = await API.post('/band/rmConcert', concert)
+    console.log(response)
+    if (response.data.success) {
+      return ({
+        success: true
+      })
+    } else {
+      return ({
+        success: false,
+        msg: response.data.err
+      })
+    }
+  } catch (err) {
+    return ({
+      msg: err.toString()
+    })
+  }
+}
+
 export default {
-  addConcert
+  addConcert,
+  rmConcert
 }

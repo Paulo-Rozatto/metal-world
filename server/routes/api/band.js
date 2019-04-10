@@ -121,4 +121,45 @@ router.post('/addConcert', (req, res) => {
   })
 })
 
+router.post('/rmConcert', (req, res) => {
+  let { email, concert } = req.body
+
+  Band.findOne({ email: email }, (err, band) => {
+    if (err) {
+      res.send({
+        success: false,
+        msg: err.toString()
+      })
+    } else if (!band) {
+      res.send({
+        success: false,
+        msg: 'No band was found'
+      })
+    } else {
+      concert = JSON.stringify(concert[0])
+      let index = band.concerts.findIndex(e => JSON.stringify(e) === concert)
+      if (index === -1) {
+        res.send({
+          success: false,
+          msg: 'No concert was found'
+        })
+      } else {
+        band.concerts.splice(index, 1)
+        band.save((err, band) => {
+          if (err) {
+            return res.send({
+              success: false,
+              message: err.toString()
+            })
+          }
+          return res.send({
+            success: true,
+            message: 'Concerts updated'
+          })
+        })
+      }
+    }
+  })
+})
+
 module.exports = router

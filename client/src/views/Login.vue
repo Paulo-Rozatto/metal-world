@@ -82,6 +82,8 @@ export default {
           this.failed = true
           this.clear()
         }
+      } else {
+        this.$router.push({ name: "PersonProfile", params: { id: '1' } });
       }
     }
   }
