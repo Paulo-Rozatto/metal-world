@@ -67,6 +67,7 @@
 <script>
 import { mapGetters } from "vuex";
 import { mapActions } from "vuex";
+import Genres from "@/data/genres"
 
 export default {
   name: "BandForm",
@@ -80,6 +81,7 @@ export default {
         creation_year: ""
       },
       show: true,
+      listGenres: [],
       response: {
         success: false,
         error: false,
@@ -129,10 +131,8 @@ export default {
       this.clear();
     }
   },
-  computed: {
-    ...mapGetters({
-      listGenres: "getGenres"
-    })
-  }
+  mounted() {
+    this.listGenres = Genres
+  },
 };
 </script>
