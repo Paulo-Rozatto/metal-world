@@ -5,7 +5,24 @@ const router = express.Router()
 
 const Band = require('../../models/Band')
 
-router.get('/', (req, res) => res.send('hi'))
+router.get('/read', (req, res) => {
+  Band.find({}, (err, bands) => {
+    if (err) {
+      return res.json({
+        message: 'Error:' + err.toString()
+      })
+    } else {
+      return res.json(
+        bands.map(band => ({
+          name: band.name,
+          genres: band.genres.toString(),
+          creationYear: band.creation_year,
+          concerts: band.concerts
+        }))
+      )
+    }
+  })
+})
 
 router.post('/signup', (req, res) => {
   const { body } = req
@@ -44,7 +61,7 @@ router.post('/signup', (req, res) => {
     if (err) {
       return res.send({
         success: false,
-        message: 'Error: Server error'
+        message: 'Error:' + err.toString()
       })
     } else if (previousBands.length > 0) {
       return res.send({

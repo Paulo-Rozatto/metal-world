@@ -1,5 +1,14 @@
 import API from './Api'
 
+let readBands = async () => {
+  try {
+    const response = await API.get('/band/read')
+    return response.data
+  } catch (err) {
+    return null
+  }
+}
+
 let addConcert = async (band) => {
   try {
     const response = await API.post('/band/addConcert', band)
@@ -43,6 +52,7 @@ let rmConcert = async (concert) => {
 }
 
 export default {
+  readBands,
   addConcert,
   rmConcert
 }
