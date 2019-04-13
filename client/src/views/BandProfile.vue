@@ -1,11 +1,12 @@
 <template>
-  <b-container class="main">
+  <b-container fluid class="main">
     <b-row class="content">
       <h1>{{band.name}}</h1>
-    </b-row>
-    <b-row align-h="between" class="content">
-      <b-col class="col" cols="4">
-        <h3>My information</h3>
+    </b-row> 
+
+    <b-row align-v="start" align-h="between" class="content bg-null">
+      <b-col sm="12" lg="4" class="pane">
+         <h2>My information</h2>
         <hr>
         <ul class="no-padding">
           <li>
@@ -27,8 +28,10 @@
           </li>
         </ul>
       </b-col>
-      <b-col cols="8">
-        <h1>Concerts</h1>
+
+      <b-col sm="12" lg="8" class="pane" id="pane-right">
+        <h2>My concerts</h2>
+        <hr/>
         <b-form inline>
           <label class="sr-only" for="locationInput">Name</label>
           <b-input
@@ -46,8 +49,8 @@
             placeholder="Date"
           />
 
-          <b-button @click="addConcert" variant="primary">Add</b-button>
-          <b-button :disabled="selected.length < 1" @click="rmConcert" variant="danger">rm</b-button>
+          <b-button @click="addConcert" variant="primary" size="md">+</b-button>
+          <b-button @click="rmConcert" :disabled="selected.length < 1" variant="danger" size="md"> --</b-button>
         </b-form>
         <b-table
           class="padding-top"
@@ -137,13 +140,10 @@ export default {
 </script>
 
 <style scoped>
-.no-padding {
-  padding: 0;
-}
-
 .padding-top {
   padding-top: 0.5em;
 }
+
 li {
   list-style-type: none;
 }
@@ -156,12 +156,18 @@ hr {
   background-color: white;
 }
 
-.col {
-  border-right: 1px solid white;
-}
-
 .content {
   padding-left: 2%;
+}
+
+.bg-null {
+  background-color: rgba(0, 0, 0, 0);
+  box-shadow: none;
+  padding: 0;
+}
+.pane{
+  background-color: #777;
+  box-shadow: 10px 10px 10px #222;
 }
 </style>
 
