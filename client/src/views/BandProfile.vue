@@ -2,7 +2,7 @@
   <b-container fluid class="main">
     <b-row class="content">
       <h1>{{band.name}}</h1>
-    </b-row> 
+    </b-row>
 
     <b-row align-v="start" align-h="between" class="content bg-null">
       <MyInformation :band="band"></MyInformation>
@@ -15,14 +15,16 @@
 <script>
 import { mapGetters } from "vuex";
 import { mapActions } from "vuex";
-import MyInformation from '@/components/band-profile/MyInformation';
-import MyConcerts from '@/components/band-profile/MyConcerts';
+import MyInformation from "@/components/band-profile/MyInformation";
+import MyInfoForm from "@/components/forms/MyIformationFormBand";
+import MyConcerts from "@/components/band-profile/MyConcerts";
 
 export default {
   name: "BandProfile",
   components: {
     MyInformation,
-    MyConcerts
+    MyConcerts,
+    MyInfoForm
   },
   data() {
     return {
@@ -32,7 +34,7 @@ export default {
         creation_year: "-1",
         genres: [],
         concerts: []
-      },
+      }
     };
   },
   mounted() {
@@ -53,7 +55,7 @@ export default {
   box-shadow: none;
   padding: 0;
 }
-.pane{
+.pane {
   background-color: #777;
   box-shadow: 10px 10px 10px #222;
 }
