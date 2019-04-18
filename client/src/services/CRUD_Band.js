@@ -9,6 +9,27 @@ let readBands = async () => {
   }
 }
 
+let updateBand = async (band) => {
+  try {
+    const response = await API.post('/band/update', band)
+    if (response.data.success) {
+      return ({
+        success: true,
+        band: response.data.band
+      })
+    } else {
+      return ({
+        success: false,
+        msg: response.data.err
+      })
+    }
+  } catch (err) {
+    return ({
+      msg: err.toString()
+    })
+  }
+}
+
 let addConcert = async (band) => {
   try {
     const response = await API.post('/band/addConcert', band)
@@ -53,6 +74,7 @@ let rmConcert = async (concert) => {
 
 export default {
   readBands,
+  updateBand,
   addConcert,
   rmConcert
 }

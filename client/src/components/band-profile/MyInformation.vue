@@ -8,7 +8,7 @@
         <b-button @click="toggleEditing" variant="primary">Edit</b-button>
       </b-col>
       <b-col v-else>
-        <b-button variant="primary">Save</b-button>
+        <b-button @click="save" variant="primary">Save</b-button>
         <b-button @click="toggleEditing" variant="danger">Cancel</b-button>
       </b-col>
     </b-row>
@@ -33,7 +33,7 @@
       </li>
     </ul>
 
-    <MyInfoForm v-else :data="band"></MyInfoForm>
+    <MyInfoForm ref="infoForm" v-else :data="band"></MyInfoForm>
   </b-col>
 </template>
 
@@ -52,6 +52,10 @@ export default {
     };
   },
   methods: {
+    save(){
+      this.$refs.infoForm.save(),
+      this.toggleEditing()
+    },
     toggleEditing() {
       this.isEditing = !this.isEditing;
     }

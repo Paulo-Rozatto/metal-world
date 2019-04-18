@@ -37,10 +37,15 @@ export default {
       }
     };
   },
-  mounted() {
-    if (this.$store.getters.isCorrectId(this.$route.params.id)) {
-      this.band = this.$store.getters.getUser;
+  methods: {
+    obtainUser() {
+      if (this.$store.getters.isCorrectId(this.$route.params.id)) {
+        this.band = this.$store.getters.getUser;
+      }
     }
+  },
+  mounted() {
+    this.obtainUser()
   }
 };
 </script>

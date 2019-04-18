@@ -14,7 +14,7 @@
       <b-form-input
         id="emailInput"
         type="email"
-        v-model="band.email"
+        v-model="band.newEmail"
         required
         placeholder="Enter the band's email"
       />
@@ -55,6 +55,8 @@
 </template>
 
 <script>
+import CRUD from "@/services/CRUD_Band";
+
 export default {
   props: ["data"],
   data() {
@@ -66,7 +68,6 @@ export default {
   },
   methods: {
     addGender() {
-      console.log(newGender)
       this.band.genres.push(newGender.value)
     },
     rmGender() {
@@ -75,11 +76,29 @@ export default {
     },
     rowSelected(items) {
       this.selected = items;
+    },
+    async save() {
+      // This function is called by its parent (MyInformation.vue)
+      let res = await CRUD.updateBand(this.band);
+
+        if (res.success) {
+          this.$store.commit("loginUser", res.band);
+          this.$parent.$parent.obtainUser()
+        } else {
+          console.log(res.msg);
+        }
     }
   },
   mounted() {
     if (this.$store.getters.isCorrectId(this.$route.params.id)) {
-      this.band = this.$store.getters.getUser;
+      let user = this.$store.getters.getUser;
+      this.band = {
+        name: user.name,
+        email: user.email,
+        newEmail: user.email,
+        creation_year: user.creation_year,
+        genres: [...user.genres]
+      }
     }
   }
 };

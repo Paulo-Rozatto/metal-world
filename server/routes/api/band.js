@@ -106,6 +106,42 @@ router.post('/login', function (req, res, next) {
   })(req, res, next)
 })
 
+router.post('/update', (req, res) => {
+  let { name, email, newEmail, creation_year, genres } = req.body
+  Band.findOne({ email: email }, (err, band) => {
+    if (err) {
+      res.send({
+        success: false,
+        msg: err.toString()
+      })
+    } else if (!band) {
+      res.send({
+        success: false,
+        msg: 'No band was found'
+      })
+    } else {
+      band.name = name
+      band.email = newEmail
+      band.creation_year = creation_year
+      band.genres = genres
+
+      band.save((err, band) => {
+        if (err) {
+          return res.send({
+            success: false,
+            message: err.toString()
+          })
+        }
+        return res.send({
+          success: true,
+          message: 'Band info updated',
+          band: band
+        })
+      })
+    }
+  })
+})
+
 router.post('/addConcert', (req, res) => {
   let { email, concert } = req.body
   Band.findOne({ email: email }, (err, band) => {
