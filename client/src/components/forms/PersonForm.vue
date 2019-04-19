@@ -30,6 +30,15 @@
       />
     </b-form-group>
 
+    <b-alert variant="success" :show="signedStatus.success">
+      <p>Signed Up!</p>
+      <p>
+        <router-link to="/login">Click here to login</router-link>
+      </p>
+    </b-alert>
+    <b-alert variant="danger" :show="signedStatus.error" dismissible>{{signedStatus.msg}}</b-alert>
+    <br>
+
     <center>
       <b-btn type="submit" variant="dark" submit>Submit</b-btn>
       <b-button type="reset" variant="danger">Reset</b-button>
@@ -39,6 +48,7 @@
 
 <script>
 import { mapActions } from "vuex";
+import CRUD from "@/services/CRUD_Person"
 
 export default {
   name: "PersonForm",
@@ -49,32 +59,44 @@ export default {
         password: "",
         name: ""
       },
-      show: true
+      show: true,
+      signedStatus: {
+        success: false,
+        error: false,
+        msg: ""
+      }
     };
   },
   methods: {
-    ...mapActions(["registerPerson"]),
     clear() {
       this.form.email = "";
       this.form.password = "";
       this.form.name = "";
-      this.form.genres = [];
-      this.form.creation_year = "";
 
       this.show = false;
       this.$nextTick(() => {
         this.show = true;
       });
     },
-    onSubmit(evt) {
+    async onSubmit(evt) {
       evt.preventDefault();
       const payload = {
         email: this.form.email,
         password: this.form.password,
         name: this.form.name
       };
-      this.registerPerson(payload);
-      this.clear();
+      let response = await CRUD.createPerson(payload)
+
+      if(response.success){
+        this.clear()
+        this.signedStatus.success = true
+        this.signedStatus.error = false
+      }
+      else{
+        this.signedStatus.success = false
+        this.signedStatus.error = true
+        this.signedStatus.msg = response.msg
+      }
     },
     onReset(evt) {
       evt.preventDefault();

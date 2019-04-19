@@ -83,6 +83,8 @@ export default {
           this.clear()
         }
       } else {
+        let person = {name: "Paulo", email: "placeholder@email.com"}
+        this.$store.commit("loginUser", person);
         this.$router.push({ name: "PersonProfile", params: { id: '1' } });
       }
     }

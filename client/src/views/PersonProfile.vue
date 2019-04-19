@@ -1,52 +1,33 @@
 <template>
-  <b-container class="main">
+  <b-container fluid class="main">
     <b-row class="content">
       <h1>{{person.name}}</h1>
     </b-row>
-    <b-row sm="*" align-h="between" class="content">
-      <b-col sm class="col">
-        <h3>My information</h3>
-        <hr>
-        <b-table :items="[...person]" :fields="['name','email']" responsive dark></b-table>
-      </b-col>
-      <b-col sm>
-        <h3>My Bands</h3>
-        <hr>
-        <b-table dark :items="myBands" :fields="['name','concerts']">
-          <template slot="concerts" slot-scope="row">
-            <b-button
-              size="sm"
-              @click="row.toggleDetails"
-              class="mr-2"
-            >{{ row.detailsShowing ? 'Hide' : 'Show'}} Concerts</b-button>
-          </template>
 
-          <template slot="row-details" slot-scope="row">
-            <b-table v-if="row.item.concerts.length > 0" :items="row.item.concerts" dark></b-table>
-            <h5 v-else>No concerts</h5>
-          </template>
-        </b-table>
-        <b-form inline>
-          <b-form-select v-model="selected" :options="options">
-            <template slot="first">
-              <option value="null" disabled>Follow a new band:</option>
-            </template>
-          </b-form-select>
-          <b-button @click="newFollow">Follow</b-button>
-        </b-form>
-      </b-col>
+    <b-row align-v="start" align-h="between" class="content bg-null">
+      <MyInformation :person="person"></MyInformation>
+      <MyBands></MyBands>
     </b-row>
   </b-container>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+import MyInformation from "@/components/person-profile/MyInformation";
+import MyBands from "@/components/person-profile/MyBands";
 
 export default {
   name: "PersonProfile",
+  components: {
+    MyInformation,
+    MyBands
+  },
   data() {
     return {
-      person: null,
+      person: {
+        name: "Not allowed or not found",
+        email: "noemail@nowhere.com",
+      },
       myBands: null,
       selected: null,
       options: [],
@@ -73,23 +54,18 @@ export default {
 </script>
 
 <style scoped>
-.no-padding {
-  padding: 0;
-}
-li {
-  list-style-type: none;
-}
-
-.genres {
-  list-style-type: disc;
-}
-
-hr {
-  background-color: white;
-}
-
 .content {
   padding-left: 2%;
+}
+
+.bg-null {
+  background-color: rgba(0, 0, 0, 0);
+  box-shadow: none;
+  padding: 0;
+}
+.pane {
+  background-color: #777;
+  box-shadow: 10px 10px 10px #222;
 }
 </style>
 

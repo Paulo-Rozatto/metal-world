@@ -9,7 +9,7 @@ const port = process.env.port || 5000
 const app = express()
 
 // Passaport config file
-require('./config/band-passport')(passport)
+require('./config/local-passport')(passport)
 
 // Conect database
 mongoose.connect(URI, { useNewUrlParser: true })
@@ -26,6 +26,7 @@ app.use(passport.initialize())
 
 // Routes
 app.use('/band', require('./routes/api/band.js'))
+app.use('/person', require('./routes/api/person.js'))
 
 app.listen(port, () => {
   console.log(`Express listening on port ${port}`)

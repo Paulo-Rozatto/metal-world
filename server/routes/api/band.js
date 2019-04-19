@@ -97,7 +97,7 @@ router.post('/signup', (req, res) => {
 }) // end of sign up endpoint
 
 router.post('/login', function (req, res, next) {
-  passport.authenticate('local', function (err, user, info) {
+  passport.authenticate('band-strategy', function (err, user, info) {
     if (err) return next(err)
     req.logIn(user, function (err) {
       if (err) { return next(err) }
