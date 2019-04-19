@@ -40,7 +40,7 @@ export default {
     },
     obtainUser() {
       if (this.$store.getters.isCorrectId(this.$route.params.id)) {
-        this.band = this.$store.getters.getUser;
+        this.person = this.$store.getters.getUser;
       }
     }
   },
