@@ -71,4 +71,14 @@ router.post('/signup', (req, res) => {
   })
 }) // end of sign up endpoint
 
+router.post('/login', function (req, res, next) {
+  passport.authenticate('person-strategy', function (err, user, info) {
+    if (err) return next(err)
+    req.logIn(user, function (err) {
+      if (err) { return next(err) }
+      return res.json(user)
+    })
+  })(req, res, next)
+})
+
 module.exports = router

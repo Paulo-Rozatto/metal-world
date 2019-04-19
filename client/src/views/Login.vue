@@ -76,16 +76,31 @@ export default {
         });
         if (res.isLogged) {
           this.$store.commit("loginUser", res.band);
-          this.$router.push({ name: "BandProfile", params: { id: res.band._id } });
+          this.$router.push({
+            name: "BandProfile",
+            params: { id: res.band._id }
+          });
         } else {
           this.$store.commit("logoffUser");
-          this.failed = true
-          this.clear()
+          this.failed = true;
+          this.clear();
         }
-      } else {
-        let person = {name: "Paulo", email: "placeholder@email.com"}
-        this.$store.commit("loginUser", person);
-        this.$router.push({ name: "PersonProfile", params: { id: '1' } });
+      } else if (this.selected === "person") {
+        let res = await Login.loginPerson({
+          email: this.form.email,
+          password: this.form.password
+        });
+        if (res.isLogged) {
+          this.$store.commit("loginUser", res.person);
+          this.$router.push({
+            name: "PersonProfile",
+            params: { id: res.person._id }
+          });
+        } else {
+          this.$store.commit("logoffUser");
+          this.failed = true;
+          this.clear();
+        }
       }
     }
   }

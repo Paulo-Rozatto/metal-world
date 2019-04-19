@@ -15,6 +15,22 @@ let loginBand = async (band) => {
   }
 }
 
+let loginPerson = async (band) => {
+  try {
+    const response = await API.post('/person/login', band)
+    return ({
+      isLogged: response.statusText === 'OK',
+      person: response.data
+    })
+  } catch (err) {
+    return ({
+      isLogged: false,
+      msg: err.toString()
+    })
+  }
+}
+
 export default {
-  loginBand
+  loginBand,
+  loginPerson
 }

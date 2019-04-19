@@ -37,19 +37,27 @@ export default {
   methods: {
     newFollow() {
       if (this.selected) this.myBands.push(this.selected);
+    },
+    obtainUser() {
+      if (this.$store.getters.isCorrectId(this.$route.params.id)) {
+        this.band = this.$store.getters.getUser;
+      }
     }
   },
-  mounted() {
-    this.person = this.$store.getters.getPersonById(this.$route.params.id);
-    this.myBands = this.$store.getters.getBandsById(this.person.following);
-    this.concerts = this.myBands.map(band => band.concerts);
-    let bands = this.$store.getters.getBands;
-    bands = bands.filter(band => !this.myBands.includes(band));
-    this.options = bands.map(band => ({
-      value: band,
-      text: band.name
-    }));
+   mounted() {
+    this.obtainUser()
   }
+  // mounted() {
+  //   this.person = this.$store.getters.getPersonById(this.$route.params.id);
+  //   this.myBands = this.$store.getters.getBandsById(this.person.following);
+  //   this.concerts = this.myBands.map(band => band.concerts);
+  //   let bands = this.$store.getters.getBands;
+  //   bands = bands.filter(band => !this.myBands.includes(band));
+  //   this.options = bands.map(band => ({
+  //     value: band,
+  //     text: band.name
+  //   }));
+  // }
 };
 </script>
 
