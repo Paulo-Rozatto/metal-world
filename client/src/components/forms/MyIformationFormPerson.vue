@@ -14,7 +14,7 @@
       <b-form-input
         id="emailInput"
         type="email"
-        v-model="person.email"
+        v-model="person.newEmail"
         required
         placeholder="Enter the band's email"
       />
@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import CRUD from "@/services/CRUD_Band";
+import CRUD from "@/services/CRUD_Person";
 
 export default {
   props: ["data"],
@@ -38,27 +38,25 @@ export default {
     },
     async save() {
       // This function is called by its parent (MyInformation.vue)
-      console.log('Hi')
-      // let res = await CRUD.updateBand(this.band);
+      let res = await CRUD.updatePerson(this.person);
 
-      //   if (res.success) {
-      //     this.$store.commit("loginUser", res.band);
-      //     this.$parent.$parent.obtainUser()
-      //   } else {
-      //     console.log(res.msg);
-      //   }
+        if (res.success) {
+          this.$store.commit("loginUser", res.person);
+          this.$parent.$parent.obtainUser()
+        } else {
+          console.log(res.msg);
+        }
     }
   },
   mounted() {
-    let user = this.$store.getters.getUser;
-    console.log(user.name)
-    // if (this.$store.getters.isCorrectId(this.$route.params.id)) {
-      
+    if (this.$store.getters.isCorrectId(this.$route.params.id)) {
+      let user = this.$store.getters.getUser;
       this.person = {
         name: user.name,
-        email: user.email
+        email: user.email,
+        newEmail: user.email
       }
-    // }
+    }
   }
 };
 </script>

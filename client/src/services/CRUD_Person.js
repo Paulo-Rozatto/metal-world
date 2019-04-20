@@ -15,6 +15,28 @@ let createPerson = async (person) => {
   }
 }
 
+let updatePerson = async (person) => {
+  try {
+    const response = await API.post('/person/update', person)
+    if (response.data.success) {
+      return ({
+        success: true,
+        person: response.data.person
+      })
+    } else {
+      return ({
+        success: false,
+        msg: response.data.err
+      })
+    }
+  } catch (err) {
+    return ({
+      msg: err.toString()
+    })
+  }
+}
+
 export default{
-  createPerson
+  createPerson,
+  updatePerson
 }

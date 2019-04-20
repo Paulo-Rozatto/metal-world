@@ -81,4 +81,38 @@ router.post('/login', function (req, res, next) {
   })(req, res, next)
 })
 
+router.post('/update', (req, res) => {
+  let { name, email, newEmail } = req.body
+  Person.findOne({ email: email }, (err, person) => {
+    if (err) {
+      res.send({
+        success: false,
+        msg: err.toString()
+      })
+    } else if (!person) {
+      res.send({
+        success: false,
+        msg: 'No band was found'
+      })
+    } else {
+      person.name = name
+      person.email = newEmail
+
+      person.save((err, person) => {
+        if (err) {
+          return res.send({
+            success: false,
+            message: err.toString()
+          })
+        }
+        return res.send({
+          success: true,
+          message: 'Person info updated',
+          person: person
+        })
+      })
+    }
+  })
+})
+
 module.exports = router

@@ -2,7 +2,8 @@
   <b-col sm="12" lg="8" class="pane" id="pane-right">
     <h3>My Bands</h3>
     <hr>
-    <b-table dark :items="myBands" :fields="['name','concerts']">
+    <h4>Coming soon!</h4>
+    <!-- <b-table dark :items="myBands" :fields="['name','concerts']">
       <template slot="concerts" slot-scope="row">
         <b-button
           size="sm"
@@ -23,7 +24,7 @@
         </template>
       </b-form-select>
       <b-button @click="newFollow">Follow</b-button>
-    </b-form>
+    </b-form> -->
   </b-col>
 </template>
 

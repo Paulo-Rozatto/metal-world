@@ -23,6 +23,10 @@ let personSchema = new Schema({
   name: {
     type: String,
     default: ''
+  },
+  bands: {
+    type: Array,
+    default: []
   }
 })
 
