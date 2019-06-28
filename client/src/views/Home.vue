@@ -44,9 +44,20 @@ export default {
   }
 }
 
-@media only screen and (min-width: 992px) {
+@media only screen and (max-width: 13666px) {
   .banner {
     background-image: url("../assets/bg-medium.jpg");
+  }
+  img {
+    width: 60%;
+    height: auto;
+    margin: 90px 20%;
+  }
+}
+
+@media only screen and (min-width: 1367px){
+  .banner {
+    background-image: url("../assets/bg-large.jpg");
   }
   img {
     width: 60%;
