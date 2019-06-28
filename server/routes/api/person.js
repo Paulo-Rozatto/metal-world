@@ -49,7 +49,7 @@ router.post('/signup', (req, res) => {
       })
     }
 
-    // Save the new band
+    // Save the new person
     const newPerson = new Person()
 
     newPerson.email = email
@@ -92,7 +92,7 @@ router.post('/update', (req, res) => {
     } else if (!person) {
       res.send({
         success: false,
-        msg: 'No band was found'
+        msg: 'No account was found'
       })
     } else {
       person.name = name
@@ -111,6 +111,91 @@ router.post('/update', (req, res) => {
           person: person
         })
       })
+    }
+  })
+})
+
+router.post('/newband', (req, res) => {
+  let { email, newBand } = req.body
+  Person.findOne({ email: email }, (err, person) => {
+    if (err) {
+      res.send({
+        success: false,
+        msg: err.toString()
+      })
+    } else if (!person) {
+      res.send({
+        success: false,
+        msg: 'No account was found'
+      })
+    } else if (!newBand) {
+      res.send({
+        success: false,
+        msg: 'No band was send'
+      })
+    } else {
+      person.bands.push(newBand)
+
+      person.save((err, person) => {
+        if (err) {
+          return res.send({
+            success: false,
+            message: err.toString()
+          })
+        }
+        return res.send({
+          success: true,
+          message: 'New band added',
+          person: person
+        })
+      })
+    }
+  })
+})
+
+router.post('/rmband', (req, res) => {
+  let { email, newBand } = req.body
+  Person.findOne({ email: email }, (err, person) => {
+    if (err) {
+      res.send({
+        success: false,
+        msg: err.toString()
+      })
+    } else if (!person) {
+      res.send({
+        success: false,
+        msg: 'No account was found'
+      })
+    } else if (!newBand) {
+      res.send({
+        success: false,
+        msg: 'No band was send'
+      })
+    } else {
+      let index = person.bands.indexOf(newBand)
+
+      if (index === -1) {
+        res.send({
+          success: false,
+          msg: 'No band was found'
+        })
+      } else {
+        person.bands.splice(index, 1)
+
+        person.save((err, person) => {
+          if (err) {
+            return res.send({
+              success: false,
+              message: err.toString()
+            })
+          }
+          return res.send({
+            success: true,
+            message: 'New band added',
+            person: person
+          })
+        })
+      }
     }
   })
 })

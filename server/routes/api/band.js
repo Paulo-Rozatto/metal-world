@@ -14,6 +14,7 @@ router.get('/read', (req, res) => {
     } else {
       return res.json(
         bands.map(band => ({
+          id: band._id.toString(),
           name: band.name,
           genres: band.genres.toString(),
           creationYear: band.creation_year,

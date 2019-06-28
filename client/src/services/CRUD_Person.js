@@ -36,7 +36,51 @@ let updatePerson = async (person) => {
   }
 }
 
+let followBand = async (person) => {
+  try {
+    const response = await API.post('/person/newBand', person)
+    if (response.data.success) {
+      return ({
+        success: true,
+        person: response.data.person
+      })
+    } else {
+      return ({
+        success: false,
+        msg: response.data.err
+      })
+    }
+  } catch (err) {
+    return ({
+      msg: err.toString()
+    })
+  }
+}
+
+let unfollowBand = async (person) => {
+  try {
+    const response = await API.post('/person/rmBand', person)
+    if (response.data.success) {
+      return ({
+        success: true,
+        person: response.data.person
+      })
+    } else {
+      return ({
+        success: false,
+        msg: response.data.err
+      })
+    }
+  } catch (err) {
+    return ({
+      msg: err.toString()
+    })
+  }
+}
+
 export default{
   createPerson,
-  updatePerson
+  updatePerson,
+  followBand,
+  unfollowBand
 }

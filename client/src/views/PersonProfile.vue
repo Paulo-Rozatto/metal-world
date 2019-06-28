@@ -6,7 +6,7 @@
 
     <b-row align-v="start" align-h="between" class="content bg-null">
       <MyInformation :person="person"></MyInformation>
-      <MyBands></MyBands>
+      <MyBands :person="person"></MyBands>
     </b-row>
   </b-container>
 </template>
