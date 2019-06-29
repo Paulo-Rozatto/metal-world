@@ -6,7 +6,7 @@
       toggleable="lg"
       fixed="top"
     >
-      <b-navbar-brand class="title">Metal World</b-navbar-brand>
+      <b-navbar-brand to="/" class="title">Metal World</b-navbar-brand>
 
       <b-navbar-toggle class="tg-btn" target="side-nav"/>
 
