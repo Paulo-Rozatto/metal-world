@@ -30,7 +30,13 @@ let loginPerson = async (band) => {
   }
 }
 
+let logout = () => {
+  API.get('/band/logout')
+  API.get('/person/logout')
+}
+
 export default {
   loginBand,
-  loginPerson
+  loginPerson,
+  logout
 }

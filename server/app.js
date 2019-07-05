@@ -15,7 +15,7 @@ require('./config/local-passport')(passport)
 // Conect database
 mongoose.connect(URI, { useNewUrlParser: true })
   .then(() => console.log('Database connected'))
-  .catch((err) => console.log(err))
+  .catch((err) => console.log('Database error: ' + err))
 
 app.use(express.json())
 app.use(cors())

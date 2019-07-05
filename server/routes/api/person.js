@@ -81,6 +81,10 @@ router.post('/login', function (req, res, next) {
   })(req, res, next)
 })
 
+router.get('/logout', (req, res) => {
+  req.logout()
+})
+
 router.post('/update', (req, res) => {
   let { name, email, newEmail } = req.body
   Person.findOne({ email: email }, (err, person) => {

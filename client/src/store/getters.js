@@ -1,4 +1,7 @@
 export default {
+  isLogged: (state) => {
+    return state.isLoggedIn
+  },
   isCorrectId: (state) => (id) => {
     return state.user._id === id
   },
@@ -13,5 +16,10 @@ export default {
   },
   getPersons: (state) => {
     return state.persons
+  },
+  getProfRoute: (state) => {
+    return state.user
+      ? Object.keys(state.user).includes('genres') ? '/band/' + state.user._id : '/person/' + state.user._id
+      : '/'
   }
 }

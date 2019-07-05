@@ -8,19 +8,21 @@
     >
       <b-navbar-brand to="/" class="title">Metal World</b-navbar-brand>
 
-      <b-navbar-toggle class="tg-btn" target="side-nav"/>
+      <b-navbar-toggle class="tg-btn" target="side-nav" />
 
       <b-collapse is-nav id="hori-nav">
         <b-nav class="ml-auto">
-          <slot class="nav-item"></slot>
-          <slot name="sign"></slot>
+          <slot class="!nav-item"></slot>
+          <slot v-if="!isLogged" name="sign"></slot>
+          <slot v-else name="profile"></slot>
         </b-nav>
       </b-collapse>
 
       <b-collapse id="side-nav">
         <b-button size="sm" class="close-btn" variant="danger" v-b-toggle.side-nav>x</b-button>
         <b-nav vertical style="margin-top: 10%;" v-b-toggle.side-nav>
-          <slot name="sign"></slot>
+          <slot v-if="!isLogged" name="sign"></slot>
+          <slot v-else name="profile"></slot>
           <slot></slot>
         </b-nav>
         <div class="layer" v-b-toggle.side-nav></div>
@@ -30,20 +32,26 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "Menu",
   data() {
     return {
       isTransparent: false,
       scrollY: 0
-    }
+    };
   },
   props: {
     route: String
   },
+  computed:{
+    ...mapGetters(['isLogged'])
+  },
   created() {
     window.addEventListener("scroll", () => {
       this.scrollY = window.scrollY;
+      this.updateLoginStatus();
     });
   }
 };

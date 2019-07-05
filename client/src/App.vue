@@ -7,19 +7,30 @@
         <b-nav-item to="/about" class="nav-item">About</b-nav-item>
         <b-nav-item to="/login" class="nav-item" slot="sign">Login</b-nav-item>
         <b-nav-item to="/signup" class="nav-item" slot="sign">Sign up</b-nav-item>
+        <b-nav-item :to="`${getProfRoute}`" class="nav-item" slot="profile">Profile</b-nav-item>
+        <b-nav-item to="/logout" class="nav-item" slot="profile">Log out</b-nav-item>
       </Menu>
     </div>
-    <router-view/>
+    <router-view />
   </div>
 </template>
 
 <script>
 import Menu from "./components/Menu";
+import { mapGetters } from "vuex";
 
 export default {
   name: "App",
+  data(){
+    return{
+      url: `hey`
+    }
+  },
   components: {
     Menu
+  },
+  computed:{
+    ...mapGetters(['getProfRoute'])
   }
 };
 </script>

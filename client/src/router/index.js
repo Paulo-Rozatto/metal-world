@@ -8,6 +8,7 @@ import SignUp from '@/views/SignUp'
 import Login from '@/views/Login'
 import BandProfile from '@/views/BandProfile'
 import PersonProfile from '@/views/PersonProfile'
+import Logout from '@/components/Logout'
 
 Vue.use(Router)
 
@@ -47,6 +48,11 @@ export default new Router({
       path: '/person/:id',
       name: 'PersonProfile',
       component: PersonProfile
+    },
+    {
+      path: '/logout',
+      name: 'Logout',
+      component: Logout
     }
   ]
 })

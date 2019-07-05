@@ -40,7 +40,6 @@
 </template>
  
  <script>
-import { mapGetters } from "vuex";
 import Login from "@/services/LoginService";
 
 export default {

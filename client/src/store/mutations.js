@@ -12,7 +12,7 @@ export default{
     state.isLoggedIn = true
     state.user = user
   },
-  logoffUser: (state) => {
+  logoutUser: (state) => {
     state.isLoggedIn = false
     state.user = null
   }
