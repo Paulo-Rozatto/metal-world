@@ -44,7 +44,7 @@ export default {
   }
 }
 
-@media only screen and (max-width: 13666px) {
+@media only screen and (min-width: 992px) and (max-width: 13666px) {
   .banner {
     background-image: url("../assets/bg-medium.jpg");
   }

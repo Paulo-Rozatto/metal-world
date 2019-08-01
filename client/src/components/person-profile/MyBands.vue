@@ -33,6 +33,7 @@
       title="Follow new bands"
       size="lg"
       header-bg-variant="dark"
+      header-text-variant="light"
       body-bg-variant="dark"
       footer-bg-variant="dark"
     >
