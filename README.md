@@ -1,8 +1,7 @@
-# Metal World <a href="title"/>
+# Metal World <a id="title"/>
 > This is a personal project created in order to learn more about Vue.js, Node.js & Express.js, and MongoDB. 
 <p>Welcome to Metal World! Here you will find new bands and you will be kept up with all the new concerts of your favorite artists.</p>
 <p>If you got a band, this is the perfect space to spread your work and get new fans.</p>
-<p></p>
 
 ## Index
 
