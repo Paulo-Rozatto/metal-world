@@ -85,7 +85,7 @@ router.get('/logout', (req, res) => {
   req.logout()
 })
 
-router.post('/update', (req, res) => {
+router.put('/update', (req, res) => {
   let { name, email, newEmail } = req.body
   Person.findOne({ email: email }, (err, person) => {
     if (err) {
@@ -119,7 +119,7 @@ router.post('/update', (req, res) => {
   })
 })
 
-router.post('/newband', (req, res) => {
+router.post('/band', (req, res) => {
   let { email, newBand } = req.body
   Person.findOne({ email: email }, (err, person) => {
     if (err) {
@@ -157,7 +157,7 @@ router.post('/newband', (req, res) => {
   })
 })
 
-router.post('/rmband', (req, res) => {
+router.delete('/band', (req, res) => {
   let { email, newBand } = req.body
   Person.findOne({ email: email }, (err, person) => {
     if (err) {

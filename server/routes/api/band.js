@@ -5,7 +5,7 @@ const router = express.Router()
 
 const Band = require('../../models/Band')
 
-router.get('/read', (req, res) => {
+router.get('/', (req, res) => {
   Band.find({}, (err, bands) => {
     if (err) {
       return res.json({
@@ -25,7 +25,7 @@ router.get('/read', (req, res) => {
   })
 })
 
-router.post('/signup', (req, res) => {
+router.post('/', (req, res) => {
   const { body } = req
   const { password } = body
   let creationYear = body.creation_year
@@ -111,7 +111,7 @@ router.get('/logout', (req, res) => {
   req.logout()
 })
 
-router.post('/update', (req, res) => {
+router.put('/', (req, res) => {
   let { name, email, newEmail, creation_year: creationYear, genres } = req.body
   Band.findOne({ email: email }, (err, band) => {
     if (err) {
@@ -147,7 +147,7 @@ router.post('/update', (req, res) => {
   })
 })
 
-router.post('/addConcert', (req, res) => {
+router.post('/concert', (req, res) => {
   let { email, concert } = req.body
   Band.findOne({ email: email }, (err, band) => {
     if (err) {
@@ -179,7 +179,7 @@ router.post('/addConcert', (req, res) => {
   })
 })
 
-router.post('/rmConcert', (req, res) => {
+router.delete('/concert', (req, res) => {
   let { email, concert } = req.body
 
   Band.findOne({ email: email }, (err, band) => {
