@@ -60,7 +60,7 @@ router.post('/', (req, res) => {
     newPerson.password = newPerson.generateHash(password)
     newPerson.name = name
 
-    newPerson.save((err, band) => {
+    newPerson.save((err, person) => {
       if (err) {
         res.status(500)
         return res.send({
@@ -71,7 +71,8 @@ router.post('/', (req, res) => {
       res.status(400)
       return res.send({
         success: true,
-        message: 'Signed up'
+        message: 'Signed up',
+        location: '/person' + person._id
       })
     })
   })

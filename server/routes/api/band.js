@@ -97,7 +97,8 @@ router.post('/', (req, res) => {
       res.status(201)
       return res.send({
         success: true,
-        message: 'Signed up'
+        message: 'Signed up',
+        location: '/band/' + band._id
       })
     })
   })
