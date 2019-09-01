@@ -5,10 +5,11 @@ const router = express.Router()
 
 const Person = require('../../models/Person')
 
-router.post('/signup', (req, res) => {
+router.post('/', (req, res) => {
   const { password } = req.body
   let { email, name } = req.body
 
+  res.status(400)
   if (!email) {
     return res.send({
       success: false,
@@ -38,11 +39,14 @@ router.post('/signup', (req, res) => {
     email: email
   }, (err, previousPersons) => {
     if (err) {
+      res.status(500)
       return res.send({
         success: false,
         message: 'Error:' + err.toString()
       })
-    } else if (previousPersons.length > 0) {
+    }
+    if (previousPersons.length > 0) {
+      res.status(400)
       return res.send({
         success: false,
         message: 'Error: Account already exist.'
@@ -58,11 +62,13 @@ router.post('/signup', (req, res) => {
 
     newPerson.save((err, band) => {
       if (err) {
+        res.status(500)
         return res.send({
           success: false,
           message: 'Error: Server error'
         })
       }
+      res.status(400)
       return res.send({
         success: true,
         message: 'Signed up'
@@ -71,6 +77,7 @@ router.post('/signup', (req, res) => {
   })
 }) // end of sign up endpoint
 
+/*
 router.post('/login', function (req, res, next) {
   passport.authenticate('person-strategy', function (err, user, info) {
     if (err) return next(err)
@@ -84,38 +91,42 @@ router.post('/login', function (req, res, next) {
 router.get('/logout', (req, res) => {
   req.logout()
 })
+*/
 
-router.put('/update', (req, res) => {
+router.put('/', (req, res) => {
   let { name, email, newEmail } = req.body
   Person.findOne({ email: email }, (err, person) => {
     if (err) {
-      res.send({
+      res.status(500)
+      return res.send({
         success: false,
         msg: err.toString()
       })
-    } else if (!person) {
-      res.send({
+    }
+    if (!person) {
+      res.status(400)
+      return res.send({
         success: false,
         msg: 'No account was found'
       })
-    } else {
-      person.name = name
-      person.email = newEmail
-
-      person.save((err, person) => {
-        if (err) {
-          return res.send({
-            success: false,
-            message: err.toString()
-          })
-        }
-        return res.send({
-          success: true,
-          message: 'Person info updated',
-          person: person
-        })
-      })
     }
+    person.name = name
+    person.email = newEmail
+
+    person.save((err, person) => {
+      if (err) {
+        res.status(500)
+        return res.send({
+          success: false,
+          message: err.toString()
+        })
+      }
+      return res.send({
+        success: true,
+        message: 'Person info updated',
+        person: person
+      })
+    })
   })
 })
 
@@ -123,25 +134,83 @@ router.post('/band', (req, res) => {
   let { email, newBand } = req.body
   Person.findOne({ email: email }, (err, person) => {
     if (err) {
-      res.send({
+      res.status(500)
+      return res.send({
         success: false,
         msg: err.toString()
       })
-    } else if (!person) {
-      res.send({
+    }
+    if (!person) {
+      res.status(400)
+      return res.send({
         success: false,
         msg: 'No account was found'
       })
-    } else if (!newBand) {
-      res.send({
+    }
+    if (!newBand) {
+      res.status(400)
+      return res.send({
         success: false,
         msg: 'No band was send'
       })
+    }
+    person.bands.push(newBand)
+
+    person.save((err, person) => {
+      if (err) {
+        res.status(500)
+        return res.send({
+          success: false,
+          message: err.toString()
+        })
+      }
+      return res.send({
+        success: true,
+        message: 'New band added',
+        person: person
+      })
+    })
+  })
+})
+
+router.delete('/band', (req, res) => {
+  let { email, newBand } = req.body
+  Person.findOne({ email: email }, (err, person) => {
+    if (err) {
+      res.status(500)
+      return res.send({
+        success: false,
+        msg: err.toString()
+      })
+    }
+    if (!person) {
+      res.status(400)
+      return res.send({
+        success: false,
+        msg: 'No account was found'
+      })
+    }
+    if (!newBand) {
+      res.status(400)
+      return res.send({
+        success: false,
+        msg: 'No band was send'
+      })
+    }
+    let index = person.bands.indexOf(newBand)
+
+    if (index === -1) {
+      res.status(400)
+      res.send({
+        success: false,
+        msg: 'No band was found'
+      })
     } else {
-      person.bands.push(newBand)
+      person.bands.splice(index, 1)
 
       person.save((err, person) => {
         if (err) {
+          res.status(500)
           return res.send({
             success: false,
             message: err.toString()
@@ -153,53 +222,6 @@ router.post('/band', (req, res) => {
           person: person
         })
       })
-    }
-  })
-})
-
-router.delete('/band', (req, res) => {
-  let { email, newBand } = req.body
-  Person.findOne({ email: email }, (err, person) => {
-    if (err) {
-      res.send({
-        success: false,
-        msg: err.toString()
-      })
-    } else if (!person) {
-      res.send({
-        success: false,
-        msg: 'No account was found'
-      })
-    } else if (!newBand) {
-      res.send({
-        success: false,
-        msg: 'No band was send'
-      })
-    } else {
-      let index = person.bands.indexOf(newBand)
-
-      if (index === -1) {
-        res.send({
-          success: false,
-          msg: 'No band was found'
-        })
-      } else {
-        person.bands.splice(index, 1)
-
-        person.save((err, person) => {
-          if (err) {
-            return res.send({
-              success: false,
-              message: err.toString()
-            })
-          }
-          return res.send({
-            success: true,
-            message: 'New band added',
-            person: person
-          })
-        })
-      }
     }
   })
 })
