@@ -78,6 +78,23 @@ router.post('/', (req, res) => {
   })
 }) // end of sign up endpoint
 
+router.get('/:id', (req, res) => {
+  let id = req.params.id
+  Person.findById(id, (err, person) => {
+    if (err) {
+      res.status(500)
+      return res.send({
+        success: false,
+        msg: err.toString
+      })
+    }
+    return res.send({
+      name: person.name,
+      bands: person.bands
+    })
+  })
+})
+
 /*
 router.post('/login', function (req, res, next) {
   passport.authenticate('person-strategy', function (err, user, info) {

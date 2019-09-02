@@ -27,6 +27,24 @@ router.get('/', (req, res) => {
   })
 })
 
+router.get('/:id', (req, res) => {
+  let id = req.params.id
+  Band.findById(id, (err, band) => {
+    if (err) {
+      res.status(500)
+      return res.send({
+        success: false,
+        msg: err.toString
+      })
+    }
+    return res.send({
+      name: band.name,
+      genres: band.genres,
+      creationYear: band.creation_year
+    })
+  })
+})
+
 router.post('/', (req, res) => {
   const { body } = req
   const { password } = body
