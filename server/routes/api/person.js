@@ -1,5 +1,6 @@
 const express = require('express')
 const passport = require('passport')
+const jwt = require('jsonwebtoken')
 
 const router = express.Router()
 
@@ -72,7 +73,8 @@ router.post('/', (req, res) => {
       return res.send({
         success: true,
         message: 'Signed up',
-        location: '/person' + person._id
+        location: '/person' + person._id,
+        token: jwt.sign({ id: person._id }, 'dontellanyone', { expiresIn: 3600 })
       })
     })
   })
@@ -80,6 +82,18 @@ router.post('/', (req, res) => {
 
 router.get('/:id', (req, res) => {
   let id = req.params.id
+  let token = req.body.token
+
+  console.log(token)
+
+  jwt.verify(token, 'dontellanyone', (err, decoded) => {
+    if (err) {
+      res.status(401)
+      console.log('didnt work')
+    } else {
+      console.log('worked')
+    }
+  })
   Person.findById(id, (err, person) => {
     if (err) {
       res.status(500)
@@ -97,15 +111,17 @@ router.get('/:id', (req, res) => {
 
 /*
 router.post('/login', function (req, res, next) {
-  passport.authenticate('person-strategy', function (err, user, info) {
+  passport.authenticate('person-strategy', { session: false }, function (err, user, info) {
     if (err) return next(err)
     req.logIn(user, function (err) {
       if (err) { return next(err) }
-      return res.json(user)
+      return res.json(user, { token: jwt.sign({ id: user._id }, 'dontellanyone', { expiresIn: 3600 }) })
     })
   })(req, res, next)
 })
+*/
 
+/*
 router.get('/logout', (req, res) => {
   req.logout()
 })

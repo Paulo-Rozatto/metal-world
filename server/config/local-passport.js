@@ -26,7 +26,7 @@ module.exports = function (passport) {
 
   passport.use(
     'person-strategy',
-    new LocalStrategy({ usernameField: 'email' }, (email, password, done) => {
+    new LocalStrategy({ usernameField: 'email' }, { session: false }, (email, password, done) => {
       // Match user
       Person.findOne({
         email: email
@@ -43,13 +43,13 @@ module.exports = function (passport) {
     })
   )
 
-  passport.serializeUser(function (user, done) {
-    done(null, user.id)
-  })
+  // passport.serializeUser(function (user, done) {
+  //   done(null, user.id)
+  // })
 
-  passport.deserializeUser(function (id, done) {
-    Band.findById(id, function (err, band) {
-      done(err, band)
-    })
-  })
+  // passport.deserializeUser(function (id, done) {
+  //   Band.findById(id, function (err, band) {
+  //     done(err, band)
+  //   })
+  // })
 }
