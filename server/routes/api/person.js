@@ -109,17 +109,13 @@ router.get('/:id', (req, res) => {
   })
 })
 
-/*
 router.post('/login', function (req, res, next) {
   passport.authenticate('person-strategy', { session: false }, function (err, user, info) {
     if (err) return next(err)
-    req.logIn(user, function (err) {
-      if (err) { return next(err) }
-      return res.json(user, { token: jwt.sign({ id: user._id }, 'dontellanyone', { expiresIn: 3600 }) })
-    })
+    if (!user) res.json(info)
+    return res.json({ user, token: jwt.sign({ id: user._id }, 'dontellanyone', { expiresIn: 3600 }) })
   })(req, res, next)
 })
-*/
 
 /*
 router.get('/logout', (req, res) => {
